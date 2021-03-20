@@ -48,7 +48,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'password': self.password
         }
 
 
@@ -57,6 +58,8 @@ class Post(db.Model):
     title = db.Column(db.String(200))
     image = db.Column(db.String(300))
     content = db.Column(db.String(300))
+    upvote_count = db.Column(db.Integer)
+    downvote_count = db.Column(db.Integer)
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_join = db.relationship('Post_Comment', backref='post_br', lazy=True)
@@ -78,6 +81,8 @@ class Post(db.Model):
             'content': self.content,
             "date_created": self.date_created,
             'user_id': self.user_id,
+            'upvote_count': self.upvote_count,
+            'downvote_count': self.downvote_count,
             'user': User.query.get(self.user_id).username
         }
 
@@ -86,6 +91,8 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comment_join = db.relationship('Post_Comment', backref='comment_br', lazy=True)
     content = db.Column(db.String(300))
+    upvote_count = db.Column(db.Integer)
+    downvote_count = db.Column(db.Integer)
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     def __init__(self, content, user_id, post_id):
         self.content = content
@@ -97,7 +104,9 @@ class Comment(db.Model):
             'content': self.content,
             "date_created": self.date_created,
             'user_id': self.user_id,
-            'post_id': self.post_id
+            'post_id': self.post_id,
+            'upvote_count': self.upvote_count,
+            'downvote_count': self.downvote_count
         }
 
 class Post_Comment(db.Model):

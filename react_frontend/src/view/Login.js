@@ -38,8 +38,8 @@ export default class Login extends Component {
         })
         let token = await res.json();
         console.log(token);
-        this.setState({ redirect: `/auth/myinfo`})
-        console.log(this.state.redirect)
+        this.setState({ redirect: `/`})
+        // console.log(this.state.redirect)
         return token;
       }
 

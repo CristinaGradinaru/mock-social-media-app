@@ -24,13 +24,21 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.json
-    username = data['username']
-    password = data ['password']
-    user = User.query.filter_by(username=username).first()
-    if user is None or not check_password_hash(user.password, password):
-        return None
-    # else: 
+    if request.method == "POST":
+        data = request.json
+        username = data['username']
+        password = data ['password']
+        user = User.query.filter_by(username=username).first()
+        if user is None or not check_password_hash(user.password, password):
+            return None
+        login_user(user, remeber = True)
+        return {
+            'data': 'data',
+            'current_user': current_user
+        }
+    return jsonify({
+        'current_user_is_authenticated': current_user.is_authenticated
+    })
 
     
 @auth.route('/logout')

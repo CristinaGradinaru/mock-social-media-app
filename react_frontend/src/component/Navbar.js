@@ -21,24 +21,24 @@ export default class Navbar extends Component {
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Newest</Link>
+                            <Link className="nav-link active" aria-current="page" to="/newest">Newest</Link>
                             </li>
                             <li className="nav-item">
-                            <Link className="nav-link" to="/">Popular</Link>
+                            <Link className="nav-link" to="/popular">Popular</Link>
                             </li>
                             <li className="nav-item">
-                            <Link className="nav-link" to="/">Most Unpopular</Link>
+                            <Link className="nav-link" to="/mostunpopular">Most Unpopular</Link>
                             </li>
                             {this.state.test === 1 ?
                                 (
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <p className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Dropdown link
-                                        </a>
+                                        </p>
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><Link className="dropdown-item" to="/">Create Post</Link></li>
-                                            <li><Link className="dropdown-item" to="/">My Info</Link></li>
-                                            <li><Link className="dropdown-item" to="/">Logout</Link></li>
+                                            <li><Link className="dropdown-item" to="/createpost">Create Post</Link></li>
+                                            <li><Link className="dropdown-item" to="/myinfo">My Info</Link></li>
+                                            <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
                                         </ul>
                                     </li>
 

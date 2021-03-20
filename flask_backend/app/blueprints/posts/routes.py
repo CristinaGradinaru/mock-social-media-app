@@ -12,6 +12,16 @@ def showposts():
     posts = Post.query.all()
     return jsonify([p.to_dict() for p in posts])
 
+@posts.route('/popular', methods=['GET'])
+def showpostsbypopularity():
+    posts = Post.query.order_by(Post.upvote_count.desc(), Post.downvote_count, Post.date_created.desc()).all()
+    return jsonify([p.to_dict() for p in posts])
+
+@posts.route('/unpopular', methods=['GET'])
+def showpostsbyunpopularity():
+    posts = Post.query.order_by(Post.downvote_count.desc(), Post.upvote_count, Post.date_created.desc()).all()
+    return jsonify([p.to_dict() for p in posts])
+
 @posts.route('/all/<int:id>', methods=['GET'])
 def post(id):
     post = Post.query.get_or_404(id)
