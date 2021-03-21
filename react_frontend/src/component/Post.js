@@ -17,6 +17,8 @@ export default class Post extends Component {
                     
                 </div>
                 <h6>{p.content}</h6>
+                <button className="btn btn-sm btn-outline-success d-inline m-3">Upvote</button>
+                <button className="btn btn-sm btn-outline-danger d-inline m-3">Downvote</button>
             </div>
             </div>
         )

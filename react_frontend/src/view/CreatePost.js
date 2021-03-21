@@ -23,11 +23,15 @@ export default class CreatePost extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="col-sm-8 offset-sm-2">
+                <h1> Share your thoughts here: </h1>
                 <form onSubmit={(e) => this.createPost(e)}>
                     <input type="text" className="form-control" name="title" placeholder="Title" />
-                    <input type="text" className="form-control" name="image" placeholder="Image" />
-                    <input type="text" className="form-control" name="content" placeholder="Content" />
+                    <br/>
+                    <input type="text" className="form-control" name="image" placeholder="Image URL" />
+                    <br/>
+                    <textarea type="text" className="form-control" name="content" placeholder="Content" />
+                    <br/>
                     <button type="submit" className="btn btn-outline-info">Submit</button>
                 </form>
             </div>

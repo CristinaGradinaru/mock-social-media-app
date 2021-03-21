@@ -7,7 +7,7 @@ export default class Register extends Component {
         let res = await fetch('http://localhost:5000/auth/register', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "username": e.target.username.value,
@@ -17,7 +17,7 @@ export default class Register extends Component {
             })
         })
         let userDetails = await res.json();
-        // this.setState({ redirect: `/blog/${newPost.id}`}) REDIRECT TO MY INFO PAGE
+        // this.setState({ redirect: `/myinfo`}) REDIRECT TO MY INFO PAGE
         console.log(userDetails)
     }
 
@@ -26,12 +26,17 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div>
+            <div className="col-sm-8 offset-sm-2">
+                <h1>Register here:</h1>
                 <form onSubmit={(e) => this.registerUser(e)}>
                     <input type="text" className="form-control" name="username" placeholder="Username" />
+                    <br/>
                     <input type="text" className="form-control" name="email" placeholder="Email" />
-                    <input type="text" className="form-control" name="password" placeholder="Password" />
-                    <input type="text" className="form-control" name="confirm_password" placeholder="Confirm Password" />
+                    <br/>
+                    <input type="password" className="form-control" name="password" placeholder="Password" />
+                    <br/>
+                    <input type="password" className="form-control" name="confirm_password" placeholder="Confirm Password" />
+                    <br/>
                     <button type="submit" className="btn btn-outline-info">Submit</button>
                 </form>
             </div>

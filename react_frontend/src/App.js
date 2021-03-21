@@ -9,6 +9,8 @@ import Popular from './view/Popular';
 import Unpopular from './view/Unpopular';
 import Register from './view/Register';
 import PostDetail from './view/PostDetail';
+import MyInfo from './view/MyInfo';
+import MyPosts from './view/MyPosts';
 
 
 export default class App extends Component {
@@ -55,6 +57,8 @@ export default class App extends Component {
         <Route exact path="/login" render={() => <Login getToken={this.getToken}/>} />
         <Route exact path="/register" render={() => <Register/>} />
         <Route exact path="/createpost" render={() => <CreatePost />} />
+        <Route exact path="/myinfo" render={() => <MyInfo />} />
+        <Route exact path="/myposts" render={() => <MyPosts />} />
       </Switch>
     </div>
     )
