@@ -6,7 +6,9 @@ export default class Login extends Component {
         super();
 
         this.state = {
-            redirect: null
+            redirect: null,
+            username: "",
+            password: ""
         }
     }
     async login(e){
@@ -19,12 +21,13 @@ export default class Login extends Component {
                 "Accept":"application/json"
 
             },
-            body: JSON.stringify("user-info", {
+            body: JSON.stringify({
                 "username": e.target.username.value,
                 "password": e.target.password.value
             })
         })
         let userDetails = await res.json();
+        localStorage.setItem("user-info", JSON.stringify(userDetails))
         // this.setState({ redirect: `/blog/${newPost.id}`}) REDIRECT TO MY INFO PAGE
         console.log(userDetails)
     }

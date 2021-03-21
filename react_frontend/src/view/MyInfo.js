@@ -8,6 +8,10 @@ export default class MyInfo extends Component {
         this.state={
         }
     }
+
+    // Grabs current_user info from login page mounts component and displays json data in here
+
+
     render() {
         return (
             <div className="col-sm-6 offset-sm-3">
@@ -20,8 +24,8 @@ export default class MyInfo extends Component {
                     <li className="list-group-item">E-mail: </li>
                 </ul>
                 <div className="card-body">
-                    <Link to="/myposts"><button className="btn btn-sm btn-outline-info d-inline ">My Posts</button></Link>
-                    <Link to="/"><button className="btn btn-sm btn-outline-info d-inline ">All Posts</button></Link>
+                    <Link to="/myposts"><button className="btn btn-sm btn-outline-info d-inline m-1">My Posts</button></Link>
+                    <Link to="/"><button className="btn btn-sm btn-info d-inline m-1">All Posts</button></Link>
                 </div>
             </div>
             </div>
