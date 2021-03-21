@@ -29,6 +29,9 @@ export default class Navbar extends Component {
                             <li className="nav-item">
                             <Link className="nav-link" to="/mostunpopular">Most Unpopular</Link>
                             </li>
+                            <li className="nav-item">
+                            <Link className="nav-link" to="/register">Register</Link>
+                            </li>
                             {this.state.test === 1 ?
                                 (
                                     <li className="nav-item dropdown">
