@@ -28,10 +28,12 @@ def login():
         data = request.json
         username = data['username']
         password = data ['password']
+        print(data['username'])
         user = User.query.filter_by(username=username).first()
+        print(user)
         if user is None or not check_password_hash(user.password, password):
             return None
-        login_user(user, remeber = True)
+        login_user(user, remember = True)
         return {
             'data': 'data',
             'current_user': current_user

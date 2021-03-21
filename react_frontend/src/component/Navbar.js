@@ -14,7 +14,7 @@ export default class Navbar extends Component {
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="container-fluid">
-                        <Link className="navbar-brand" to="/">Home</Link>
+                        <Link className="navbar-brand" to="/">Social Media App</Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                         </button>
@@ -29,6 +29,9 @@ export default class Navbar extends Component {
                             <li className="nav-item">
                             <Link className="nav-link" to="/mostunpopular">Most Unpopular</Link>
                             </li>
+                            <li className="nav-item">
+                            <Link className="nav-link" to="/register">Register</Link>
+                            </li>
                             {this.state.test === 1 ?
                                 (
                                     <li className="nav-item dropdown">
@@ -38,6 +41,7 @@ export default class Navbar extends Component {
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <li><Link className="dropdown-item" to="/createpost">Create Post</Link></li>
                                             <li><Link className="dropdown-item" to="/myinfo">My Info</Link></li>
+                                            <li><Link className="dropdown-item" to="/myposts">My Posts</Link></li>
                                             <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
                                         </ul>
                                     </li>
