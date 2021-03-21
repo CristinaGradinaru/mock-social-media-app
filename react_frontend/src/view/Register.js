@@ -7,7 +7,7 @@ export default class Register extends Component {
         let res = await fetch('http://localhost:5000/auth/register', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "username": e.target.username.value,
@@ -17,7 +17,7 @@ export default class Register extends Component {
             })
         })
         let userDetails = await res.json();
-        // this.setState({ redirect: `/blog/${newPost.id}`}) REDIRECT TO MY INFO PAGE
+        // this.setState({ redirect: `/myinfo`}) REDIRECT TO MY INFO PAGE
         console.log(userDetails)
     }
 

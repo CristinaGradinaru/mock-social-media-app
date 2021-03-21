@@ -41,6 +41,7 @@ export default class Navbar extends Component {
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <li><Link className="dropdown-item" to="/createpost">Create Post</Link></li>
                                             <li><Link className="dropdown-item" to="/myinfo">My Info</Link></li>
+                                            <li><Link className="dropdown-item" to="/myposts">My Posts</Link></li>
                                             <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
                                         </ul>
                                     </li>

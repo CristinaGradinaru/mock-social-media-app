@@ -6,7 +6,7 @@ export default class Login extends Component {
         super();
 
         this.state = {
-            redirect: null,
+            redirect: null
         }
     }
     async login(e){
@@ -15,9 +15,11 @@ export default class Login extends Component {
         let res = await fetch('http://localhost:5000/auth/login', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept":"application/json"
+
             },
-            body: JSON.stringify({
+            body: JSON.stringify("user-info", {
                 "username": e.target.username.value,
                 "password": e.target.password.value
             })
