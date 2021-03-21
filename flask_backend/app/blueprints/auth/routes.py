@@ -44,7 +44,7 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('hello_world')) #Probably change this
+    return "user logged out"
 
 # @auth.route('/myinfo')
 # @login_required
