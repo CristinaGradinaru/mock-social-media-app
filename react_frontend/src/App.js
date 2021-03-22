@@ -99,7 +99,6 @@ export default class App extends Component {
     return (
     <div className="App">
       <Navbar logout={this.logout} current_user_active={this.state.current_user_active}/>
-      <button className="btn btn-success" onClick={() => this.getToken()}>GET TOKEN!</button>
       <Switch>
         <Route exact path="/" render={() => <Home getToken={this.getToken}/>} />
         <Route exact path="/newest" render={() => <Newest getToken={this.getToken }/>} />
