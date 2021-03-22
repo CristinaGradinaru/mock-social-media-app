@@ -28,7 +28,7 @@ def post(id):
     comments_by_post = Post_Comment.query.filter_by(post_id=id).all()
     for id in comments_by_post:
         comment_content = Comment.query.filter_by(id=id).all()
-    # return jsonify([c.to_dict() for c in comment_content])
+    return jsonify([c.to_dict() for c in comment_content])
     return jsonify(post.to_dict())
 
 @posts.route('/create', methods=['POST'])
