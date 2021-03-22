@@ -3,7 +3,7 @@ from flask import request, redirect, url_for,jsonify, render_template, flash
 from app import db
 from flask_login import login_required, current_user
 from .forms import PostForm
-from app.models import Post
+from app.models import Post, Comment, Post_Comment
 from app.auth import token_auth
 
 
@@ -25,6 +25,10 @@ def showpostsbyunpopularity():
 @posts.route('/all/<int:id>', methods=['GET'])
 def post(id):
     post = Post.query.get_or_404(id)
+    comments_by_post = Post_Comment.query.filter_by(post_id=id).all()
+    for id in comments_by_post:
+        comment_content = Comment.query.filter_by(id=id).all()
+    # return jsonify([c.to_dict() for c in comment_content])
     return jsonify(post.to_dict())
 
 @posts.route('/create', methods=['POST'])
@@ -73,7 +77,7 @@ def post_delete(post_id):
     flash("This entry has been deleted", 'info')
     return redirect(url_for('hello_world'))
 
-@posts.route('/upvote/<int:id>', methods=['GET'])
+@posts.route('/upvote/<int:post_id>', methods=['GET'])
 # @token_auth.login_required
 def upvote(post_id):
     # data = request.json
@@ -83,7 +87,7 @@ def upvote(post_id):
     db.session.commit()
     return jsonify(post.to_dict()['upvote_count'])
 
-@posts.route('/downvote/<int:id>', methods=['GET'])
+@posts.route('/downvote/<int:post_id>', methods=['GET'])
 # @token_auth.login_required
 def downvote(post_id):
     # data = request.json
@@ -92,3 +96,17 @@ def downvote(post_id):
     db.session.add(post)
     db.session.commit()
     return jsonify(post.to_dict()['downvote_count'])
+
+@posts.route('/comment/<int:post_id>', methods=['POST'])
+@token_auth.login_required
+def comment(post_id):
+    data = request.json
+    print(data)
+    user = token_auth.current_user()
+    c = Comment(data['content'], user.id, post_id)
+    db.session.add(c)
+    db.session.commit()
+    p_c = Post_Comment(post_id, c.to_dict()['id'])
+    db.session.add(p_c)
+    db.session.commit()
+    return jsonify(c.to_dict())

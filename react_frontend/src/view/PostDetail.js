@@ -6,13 +6,15 @@ export default class PostDetail extends Component {
         super();
 
         this.state = {
-            post: {}
+            post: {},
+            comments: []
         }
     }
     async componentDidMount() {
         const res = await fetch(`http://127.0.0.1:5000/posts/all/${this.props.match.params.id}`)
         const post = await res.json()
         this.setState({post:post})
+        
     }
     
 
@@ -35,6 +37,7 @@ export default class PostDetail extends Component {
                         </Link>
                     </div>
                 </div>
+                {/* {this.state.comments.reverse().map(c => ( <Comment key={p.id} comment={c} /> ))} */}
             </div>
         )
     }

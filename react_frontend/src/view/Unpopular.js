@@ -18,7 +18,7 @@ export default class Unpopular extends Component {
         return (
             <div className="justify-content-center">
                 {/* <Link to="/createpost"><button className="btn btn-secondary">Create a Post</button></Link> */}
-                {this.state.posts.map(p => ( <Post key={p.id} post={p} /> ))}
+                {this.state.posts.map(p => ( <Post getToken={this.props.getToken} key={p.id} post={p} /> ))}
             </div>
         )
     }

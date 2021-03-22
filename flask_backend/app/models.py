@@ -62,7 +62,7 @@ class Post(db.Model):
     downvote_count = db.Column(db.Integer)
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    post_join = db.relationship('Post_Comment', backref='post_br', lazy=True)
+    post_join = db.relationship('Post_Comment', backref='post_br')
     
 
     def __init__(self, title, image, content, user_id):
@@ -71,7 +71,7 @@ class Post(db.Model):
         self.content = content
         self.user_id = user_id
         self.upvote_count = 0
-        self.downvote_count = 0
+        self.vote_count = 0
     
     def __repr__(self):
         return f'<Post: {self.title}>' #shows info in the post.query.all()
@@ -91,7 +91,7 @@ class Post(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    comment_join = db.relationship('Post_Comment', backref='comment_br', lazy=True)
+    comment_join = db.relationship('Post_Comment', backref='comment_br')
     content = db.Column(db.String(300))
     upvote_count = db.Column(db.Integer)
     downvote_count = db.Column(db.Integer)
@@ -100,8 +100,6 @@ class Comment(db.Model):
         self.content = content
         self.user_id = user_id
         self.post_id = post_id
-        self.upvote_count = 0
-        self.downvote_count = 0
     def to_dict(self):
         return {
             'id': self.id,
@@ -117,3 +115,9 @@ class Post_Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=False)
+    def __init__(self, post_id, comment_id):
+        self.post_id = post_id
+        self.comment_id = comment_id
+    def __repr__(self):
+        return f'<Post_Comment: {self.post_id} | {self.comment_id}>'
+    

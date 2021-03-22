@@ -92,8 +92,8 @@ export default class App extends Component {
       redirect: null,
       current_user_active: false
     })
-
   }
+  
 
   render (){
     return (
@@ -103,9 +103,9 @@ export default class App extends Component {
       <Switch>
         <Route exact path="/" render={() => <Home getToken={this.getToken}/>} />
         <Route exact path="/newest" render={() => <Newest getToken={this.getToken }/>} />
-        <Route exact path="/popular" render={() => <Popular />} />
-        <Route exact path="/mostunpopular" render={() => <Unpopular />} />
-        <Route exact path="/post/:id" render={({ match }) => <PostDetail match={match} />} />
+        <Route exact path="/popular" render={() => <Popular getToken={this.getToken} />} />
+        <Route exact path="/mostunpopular" render={() => <Unpopular getToken={this.getToken} />} />
+        <Route exact path="/post/:id" render={({ match }) => <PostDetail match={match} getToken={this.getToken} />} />
         <Route exact path="/login" render={() => <Login redirect={this.state.redirect} login={this.login} getToken={this.getToken}/>} />
         <Route exact path="/register" render={() => <Register/>} />
         <Route exact path="/createpost" render={() => <CreatePost getToken={this.getToken}/>} />
