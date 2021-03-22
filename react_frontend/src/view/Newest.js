@@ -18,7 +18,7 @@ export default class Newest extends Component {
         return (
             <div className="justify-content-center">
                 {/* <Link to="/createpost"><button className="btn btn-secondary">Create a Post</button></Link> */}
-                {this.state.posts.reverse().map(p => ( <Post key={p.id} post={p} /> ))}
+                {this.state.posts.reverse().map(p => ( <Post getToken={this.props.getToken} key={p.id} post={p} /> ))}
             </div>
         )
     }

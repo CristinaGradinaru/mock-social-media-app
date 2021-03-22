@@ -2,35 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
 export default class Login extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            redirect: null,
-            username: "",
-            password: ""
-        }
-    }
-    async login(e){
-        e.preventDefault();
-        console.log('about to post req login')
-        let res = await fetch('http://localhost:5000/auth/login', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept":"application/json"
-
-            },
-            body: JSON.stringify({
-                "username": e.target.username.value,
-                "password": e.target.password.value
-            })
-        })
-        let userDetails = await res.json();
-        localStorage.setItem("user-info", JSON.stringify(userDetails))
-        // this.setState({ redirect: `/blog/${newPost.id}`}) REDIRECT TO MY INFO PAGE
-        console.log(userDetails)
-    }
+    
 
 
     // getToken = async (e) => {
@@ -49,12 +21,12 @@ export default class Login extends Component {
     //   }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
+        if (this.props.redirect) {
+            return <Redirect to={this.props.redirect} />
         }
         return (
             <div className="col-sm-6 offset-sm-3">
-                <form onSubmit={(e) => this.login(e)}>
+                <form onSubmit={(e) => this.props.login(e)}>
                     <h1>Login:</h1>
                     <input type="text" className="form-control" name="username" placeholder="Username" />
                     <br/>
