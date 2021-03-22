@@ -77,28 +77,6 @@ def post_delete(post_id):
     flash("This entry has been deleted", 'info')
     return redirect(url_for('hello_world'))
 
-<<<<<<< HEAD
-
-# @posts.route('/all/upvote/<int:id>', methods=['GET'])
-# @token_auth.login_required
-# def upvote(post_id):
-#     data = request.json
-#     post = Post.query.get_or_404(post_id)
-#     post.upvote_count += 1
-#     db.session.add(post)
-#     db.session.commit()
-#     return jsonify(post.to_dict())
-
-# @posts.route('/all/downvote/<int:id>', methods=['GET'])
-# @token_auth.login_required
-# def downvote(post_id):
-#     data = request.json
-#     post = Post.query.get_or_404(post_id)
-#     post.downvote_count += 1
-#     db.session.add(post)
-#     db.session.commit()
-#     return jsonify(post.to_dict())
-=======
 @posts.route('/upvote/<int:post_id>', methods=['GET'])
 # @token_auth.login_required
 def upvote(post_id):
@@ -132,4 +110,3 @@ def comment(post_id):
     db.session.add(p_c)
     db.session.commit()
     return jsonify(c.to_dict())
->>>>>>> 6868a4a46b6708491c31d01736cf86d41a3c5169
