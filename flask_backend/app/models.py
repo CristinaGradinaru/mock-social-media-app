@@ -106,7 +106,6 @@ class Comment(db.Model):
             'content': self.content,
             "date_created": self.date_created,
             'user_id': self.user_id,
-            'post_id': self.post_id,
             'upvote_count': self.upvote_count,
             'downvote_count': self.downvote_count
         }
@@ -118,6 +117,12 @@ class Post_Comment(db.Model):
     def __init__(self, post_id, comment_id):
         self.post_id = post_id
         self.comment_id = comment_id
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'post_id': self.post_id,
+            'comment_id': self.comment_id
+        }
     def __repr__(self):
         return f'<Post_Comment: {self.post_id} | {self.comment_id}>'
     
