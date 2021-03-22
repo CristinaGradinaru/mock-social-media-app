@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
 export default class CreatePost extends Component {
-    async createPost(e){
-        const token = "MoWkAXkgr/6IdkawwjUdCh0uiLZ41U2P	"
+    constructor() {
+        super();
+
+        this.state = {
+            redirect: null
+        }
+    }
+
+
+    async createapost(e){
         e.preventDefault();
-        console.log('about to create post')
+        let token = await this.props.getToken();
         let res = await fetch('http://localhost:5000/posts/create', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
+                'Authorization': 'Bearer ' + token['token']
+                
             },
             body: JSON.stringify({
                 "title": e.target.title.value,
@@ -17,15 +27,19 @@ export default class CreatePost extends Component {
                 "content": e.target.content.value
             })
         })
-        let postDetails = await res.json();
-        // this.setState({ redirect: `/posts/${newPost.id}`}) REDIRECT TO MY specific post PAGE
-        console.log(postDetails)
+        let newPost = await res.json();
+        this.setState({ redirect: `/posts/${newPost.id}`})
+        console.log(this.state.redirect)
     }
+    
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
         return (
             <div className="col-sm-8 offset-sm-2">
                 <h1> Share your thoughts here: </h1>
-                <form onSubmit={(e) => this.createPost(e)}>
+                <form onSubmit={(e) => this.createapost(e)}>
                     <input type="text" className="form-control" name="title" placeholder="Title" />
                     <br/>
                     <input type="text" className="form-control" name="image" placeholder="Image URL" />

@@ -2,13 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class Navbar extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            test: 1
-        }
-    }
+    
     render() {
         return (
             <div>
@@ -32,7 +26,7 @@ export default class Navbar extends Component {
                             <li className="nav-item">
                             <Link className="nav-link" to="/register">Register</Link>
                             </li>
-                            {this.state.test === 1 ?
+                            {this.props.current_user_active ?
                                 (
                                     <li className="nav-item dropdown">
                                         <p className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,13 +36,13 @@ export default class Navbar extends Component {
                                             <li><Link className="dropdown-item" to="/createpost">Create Post</Link></li>
                                             <li><Link className="dropdown-item" to="/myinfo">My Info</Link></li>
                                             <li><Link className="dropdown-item" to="/myposts">My Posts</Link></li>
-                                            <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
+                                            <li><Link className="dropdown-item" to="/" onClick={this.props.logout}>Logout</Link></li>
                                         </ul>
                                     </li>
 
                                 ) : (
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/">Login</Link>
+                                        <Link className="nav-link" to="/login">Login</Link>
                                     </li>
                                 )
                             }

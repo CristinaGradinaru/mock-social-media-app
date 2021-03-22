@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
         self.password = generate_password_hash(password)
 
     def __repr__(self):
-        return f'<User: {self.username} | {self.email}>'
+        return f'<User: {self.username} | {self.email} | {self.password} | {self.id} | {self.token}>'
 
     def get_token(self,expires_in=3600):
         now = datetime.utcnow()
@@ -70,6 +70,8 @@ class Post(db.Model):
         self.image = image,
         self.content = content
         self.user_id = user_id
+        self.upvote_count = 0
+        self.downvote_count = 0
     
     def __repr__(self):
         return f'<Post: {self.title}>' #shows info in the post.query.all()
@@ -98,6 +100,8 @@ class Comment(db.Model):
         self.content = content
         self.user_id = user_id
         self.post_id = post_id
+        self.upvote_count = 0
+        self.downvote_count = 0
     def to_dict(self):
         return {
             'id': self.id,

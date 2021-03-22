@@ -18,19 +18,29 @@ export default class App extends Component {
     super();
 
     this.state = {
-      current_user: null,
+      current_user_active: false,
+      redirect: null,
       username: '',
       password: '',
-      data: ''
-
+      email: '',
+      id: ''
     }
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
-  async componentDidMount() {
-    let data = await this.getCurrentUser();
-    this.setState({ data: data })
-    console.log(this.state.data)
-    // const res = await fetch('http://localhost:5000/auth/login')
-  }
+  
+  getToken = async () => {
+        let res = await fetch('http://localhost:5000/tokens', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Basic ' + btoa(this.state.username + ":" + this.state.password)
+          }
+        })
+        let token = await res.json();
+        console.log(token);
+        return token;
+      }
+
   getCurrentUser = async () => {
     let res = await fetch('http://localhost:5000/auth/login', {
       method: 'GET'
@@ -40,24 +50,66 @@ export default class App extends Component {
     })
     let data = await res.json();
     console.log(data);
-    this.setState({ data: data })
     return data;
+  }
+
+  async login(e){
+    e.preventDefault();
+    console.log('about to post req login');
+    let res = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept":"application/json"
+
+        },
+        body: JSON.stringify({
+            "username": e.target.username.value,
+            "password": e.target.password.value,
+        })
+    })
+    let userDetails = await res.json();
+    // localStorage.setItem("user-info", JSON.stringify(userDetails))
+    
+    this.setState({
+      redirect: "/myinfo",
+      username: e.target.username.value,
+      password: e.target.password.value,
+      email: userDetails.email,
+      id: userDetails.id,
+      current_user_active: true
+    })
+    console.log(userDetails);
+  }
+  async logout(){
+    let res = await fetch('http://localhost:5000/auth/logout')
+    console.log(res)
+    this.setState({
+      username: '',
+      password: '',
+      email: '',
+      id: '',
+      redirect: null,
+      current_user_active: false
+    })
+
   }
 
   render (){
     return (
     <div className="App">
-      <Navbar/>
+      <Navbar logout={this.logout} current_user_active={this.state.current_user_active}/>
+      <button className="btn btn-success" onClick={() => this.getToken()}>GET TOKEN!</button>
       <Switch>
-        <Route exact path="/" render={() => <Home getToken={this.getToken }/>} />
+        <Route exact path="/" render={() => <Home getToken={this.getToken}/>} />
         <Route exact path="/newest" render={() => <Newest getToken={this.getToken }/>} />
         <Route exact path="/popular" render={() => <Popular />} />
         <Route exact path="/mostunpopular" render={() => <Unpopular />} />
         <Route exact path="/post/:id" render={({ match }) => <PostDetail match={match} />} />
-        <Route exact path="/login" render={() => <Login getToken={this.getToken}/>} />
+        <Route exact path="/login" render={() => <Login redirect={this.state.redirect} login={this.login} getToken={this.getToken}/>} />
         <Route exact path="/register" render={() => <Register/>} />
-        <Route exact path="/createpost" render={() => <CreatePost />} />
-        <Route exact path="/myinfo" render={() => <MyInfo />} />
+        <Route exact path="/createpost" render={() => <CreatePost getToken={this.getToken}/>} />
+        <Route exact path="/myinfo" render={() => <MyInfo username={this.state.username} email={this.state.email}/>} />
         <Route exact path="/myposts" render={() => <MyPosts />} />
       </Switch>
     </div>

@@ -28,22 +28,21 @@ def login():
         data = request.json
         username = data['username']
         password = data ['password']
-        print(data['username'])
+        # print(data['username'])
         user = User.query.filter_by(username=username).first()
-        print(user)
+        # print(user)
         if user is None or not check_password_hash(user.password, password):
             return None
         login_user(user, remember = True)
-        return {
-            'data': 'data',
-            'current_user': current_user
-        }
+        print(current_user)
+        return jsonify(user.to_dict())
+    print(current_user.is_authenticated)
     return jsonify({
-        'current_user_is_authenticated': current_user.is_authenticated
+        "authenticated": current_user.is_anonymous
     })
 
     
-@auth.route('/logout')
+@auth.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
     return "user logged out"
