@@ -72,3 +72,24 @@ def post_delete(post_id):
     db.session.commit()
     flash("This entry has been deleted", 'info')
     return redirect(url_for('hello_world'))
+
+
+# @posts.route('/all/upvote/<int:id>', methods=['GET'])
+# @token_auth.login_required
+# def upvote(post_id):
+#     data = request.json
+#     post = Post.query.get_or_404(post_id)
+#     post.upvote_count += 1
+#     db.session.add(post)
+#     db.session.commit()
+#     return jsonify(post.to_dict())
+
+# @posts.route('/all/downvote/<int:id>', methods=['GET'])
+# @token_auth.login_required
+# def downvote(post_id):
+#     data = request.json
+#     post = Post.query.get_or_404(post_id)
+#     post.downvote_count += 1
+#     db.session.add(post)
+#     db.session.commit()
+#     return jsonify(post.to_dict())
