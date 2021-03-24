@@ -18,6 +18,12 @@ def showmyposts(id):
     posts = Post.query.filter_by(user_id=id)
     return jsonify([p.to_dict() for p in posts])
 
+@posts.route('/newest', methods=['GET'])
+# @token_auth.login_required
+def shownewest():
+    posts = Post.query.order_by(Post.date_created.asc())
+    return jsonify([p.to_dict() for p in posts])
+
 @posts.route('/popular', methods=['GET'])
 def showpostsbypopularity():
     posts = Post.query.order_by(Post.upvote_count.desc(), Post.downvote_count, Post.date_created.desc()).all()

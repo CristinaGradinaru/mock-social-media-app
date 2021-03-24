@@ -10,7 +10,7 @@ export default class Newest extends Component {
         }
     }
     async componentDidMount() {
-        const res = await fetch('http://localhost:5000/posts/all')
+        const res = await fetch('http://localhost:5000/posts/newest')
         const posts = await res.json()
         this.setState({posts:posts})
     }
