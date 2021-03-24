@@ -25,11 +25,23 @@ def showpostsbyunpopularity():
 @posts.route('/all/<int:id>', methods=['GET'])
 def post(id):
     post = Post.query.get_or_404(id)
+
     comments_by_post = Post_Comment.query.filter_by(post_id=id).all()
     for id in comments_by_post:
         comment_content = Comment.query.filter_by(id=id).all()
     return jsonify([c.to_dict() for c in comment_content])
+
     return jsonify(post.to_dict())
+
+@posts.route('/comments/<int:post_id>')
+def comments(post_id):
+    post_comments = Post_Comment.query.filter_by(post_id=post_id).all()
+    arr = [c.to_dict()['comment_id'] for c in post_comments]
+    comments = Comment.query.all()
+    return jsonify([c.to_dict() for c in comments if c.id in arr])
+
+    # for num in arr:
+    #     comment_detail = Comment.query.filter(id==num).all()
 
 @posts.route('/create', methods=['POST'])
 @token_auth.login_required
