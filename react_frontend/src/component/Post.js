@@ -9,7 +9,7 @@ export default class Post extends Component {
         this.state = {
             redirect: null,
             upvote_count: p.upvote_count,
-            downvote_count: p.downvote_count
+            downvote_count: p.downvote_count,
         }
       }
     async upvote(id) {

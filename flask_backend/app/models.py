@@ -85,7 +85,6 @@ class Post(db.Model):
             'user_id': self.user_id,
             'upvote_count': self.upvote_count,
             'downvote_count': self.downvote_count,
-            'user': User.query.get(self.user_id).username
         }
 
 class Comment(db.Model):
@@ -107,7 +106,8 @@ class Comment(db.Model):
             "date_created": self.date_created,
             'user_id': self.user_id,
             'upvote_count': self.upvote_count,
-            'downvote_count': self.downvote_count
+            'downvote_count': self.downvote_count,
+            'user': User.query.get(self.user_id).username
         }
 
 class Post_Comment(db.Model):

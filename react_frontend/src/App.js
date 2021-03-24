@@ -109,7 +109,7 @@ export default class App extends Component {
         <Route exact path="/register" render={() => <Register/>} />
         <Route exact path="/createpost" render={() => <CreatePost getToken={this.getToken}/>} />
         <Route exact path="/myinfo" render={() => <MyInfo username={this.state.username} email={this.state.email}/>} />
-        <Route exact path="/myposts" render={() => <MyPosts />} />
+        <Route exact path="/myposts" render={() => <MyPosts username={this.state.username} email={this.state.email} id={this.state.id}/>} />
       </Switch>
     </div>
     )
